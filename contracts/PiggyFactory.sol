@@ -20,8 +20,8 @@ contract PiggyFactory {
     address developerAddress;
     mapping(address => detailsOfPiggyBank[]) users;
 
-    error noPiggyForUser();
-    error noActivePiggy();
+    // error noPiggyForUser();
+    // error noActivePiggy();
     error piggyCreationFailed();
 
     constructor() {
@@ -41,7 +41,12 @@ contract PiggyFactory {
         }
 
         if(piggyBankAddress == address(0)) revert piggyCreationFailed();
-
+        detailsOfPiggyBank memory _newDetails = detailsOfPiggyBank (
+            piggyBankAddress,
+            purpose
+        );
+         noOfPiggyBank = _newPiggyBank;
+         users[msg.sender].push(_newDetails);
     }
 
     function getByteCode(uint8 durationMonths, string memory purpose, Token _token) private view returns (bytes memory){
